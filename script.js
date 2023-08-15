@@ -278,9 +278,16 @@ function addEventShowModalDeposit() {
 }
 const btnDeposit = $('#btnDeposit');
 btnDeposit.on('click', () => {
+    const transactionAmount = parseFloat($('#transactionDeposit').val());
+
+    if (isNaN(transactionAmount) || transactionAmount <= 0) {
+        $('#Deposit-error').text('Vui lòng nhập số tiền hợp lệ.');
+        return;
+    }
+    $('#transactionDeposit').val('');
     const currentBalance = customer.balance;
     console.log(currentBalance);
-    const transactionAmount = +$('#transactionDeposit').val();
+
     const newBalance = currentBalance + transactionAmount;
     console.log("newBalance", newBalance);
     console.log("currentBalance", currentBalance);
@@ -364,8 +371,14 @@ function addEventShowModalWithdraw() {
 }
 const btnWithdraw = $('#btnWithdraw');
 btnWithdraw.on('click', () => {
+    const transactionAmount = parseFloat($('#transactionWithdraw').val());
+
+    if (isNaN(transactionAmount) || transactionAmount <= 0) {
+        $('#withdraw-error').text('Vui lòng nhập số tiền hợp lệ.');
+        return;
+    }
     const currentBalance = customer.balance;
-    const transactionAmount = +$('#transactionWithdraw').val();
+    $('#transactionWithdraw').val('');
     const newBalance = currentBalance - transactionAmount;
     customer.balance = newBalance;
 
